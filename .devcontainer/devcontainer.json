@@ -1,0 +1,46 @@
+{
+    "name": "AVD - ${localWorkspaceFolderBasename}",
+    //"image": "ghcr.io/aristanetworks/avd/universal:python3.11-avd-v5.4.0",
+    //"image": "registry.gitlab.aristanetworks.com/westley.dion/ce_act_cli/ce_act_cli:v0.1.8",
+    "image": "docker-ce_act_cli:latest",
+    // "build": { 
+    //     "dockerfile": "Dockerfile",
+    //     // "context": ".."
+    //     "args":{
+    //         "GITLAB_PAT": "{localEnv:GITLAB_PAT}",
+    //         "GITLAB_USER": "{localEnv:GITLAB_USER}"
+    //     }
+    // },
+    "mounts": [
+        "source=${localEnv:HOME}/.ssh,target=/home/avd/.ssh,type=bind",
+        "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+    ],
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+    "workspaceFolder": "/workspace",
+    //"postCreateCommand": "chmod 600 /home/avd/.ssh/*;sudo chown root:docker /var/run/docker.sock;",
+    "postStartCommand": "/bin/entrypoint.sh true",
+    "containerEnv": {
+        "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+    },
+    "runArgs": [
+        //"--network=host"
+        //"--mount", "type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock",
+        "--userns=host"
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "dbaeumer.vscode-eslint",
+                "ms-vscode.makefile-tools",
+                "redhat.ansible",
+                "GitLab.gitlab-workflow",
+                "eamodio.gitlens"
+            ]
+        }
+    }
+}
+
+
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.183.0/containers/python-3

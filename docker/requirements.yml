@@ -1,0 +1,9 @@
+---
+roles:
+  - name: act-topgen
+    src: https://github.com/emilarista/act_topgen.git
+    scm: git
+    version: main
+
+collections:
+  - name: community.docker
