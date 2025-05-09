@@ -1,0 +1,10 @@
+version: '3'
+services:
+  ce_act_cli:
+    build:
+      context: .
+      args:
+        - GITLAB_PAT=${GITLAB_PAT}
+        - GITLAB_USER=${GITLAB_USER}
+    env_file:
+      .env

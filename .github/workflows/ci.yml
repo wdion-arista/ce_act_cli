@@ -1,0 +1,60 @@
+name: CI Pipeline
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+
+jobs:
+  sast:
+    name: SAST (Code Scanning)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      # Example: Semgrep SAST
+      - name: Run Semgrep SAST
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: 'auto'
+        env:
+          SEMGREP_RULES: >-
+            p/ci p/security-audit p/secrets p/xss
+
+  build-and-push:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+    needs: sast
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker registry
+        uses: docker/login-action@v3
+        with:
+          registry: registry.gitlab.aristanetworks.com
+          username: ${{ secrets.CI_REGISTRY_USER }}
+          password: ${{ secrets.CI_JOB_TOKEN }}
+
+      - name: Build Docker image
+        run: |
+          cd docker
+          docker build -t registry.gitlab.aristanetworks.com/westley.dion/ce_act_cli/ce_act_cli:${GITHUB_REF_NAME} .
+
+      - name: Push Docker image
+        run: |
+          docker push registry.gitlab.aristanetworks.com/westley.dion/ce_act_cli/ce_act_cli:${GITHUB_REF_NAME}
+
+  deploy:
+    name: Deploy Docker Image
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Run Docker image
+        run: |
+          docker run -it registry.gitlab.aristanetworks.com/westley.dion/ce_act_cli/ce_act_cli:${GITHUB_REF_NAME}
