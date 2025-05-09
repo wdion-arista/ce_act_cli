@@ -1,5 +1,5 @@
 python-dotenv
 argcomplete
 PyYAML
-# git+https://gitlab.aristanetworks.com/arista-eosplus/ACT/actrac.git@v0.1.0
+git+https://github.com/wdion-arista/ce_act_cli.git
 pyinputplus
