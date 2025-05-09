@@ -23,14 +23,8 @@ RUN git config --global credential.helper store
     # &&  echo "https://${GITLAB_USER}:${GITLAB_PAT}@gitlab.aristanetworks.com" > /home/avd/.git-credentials
 RUN --mount=type=bind,source=/,target=/app/ pip install -r /app/requirements.txt
 RUN --mount=type=bind,source=/,target=/app/ pip install --no-index --find-links=/app/wheelhouse actrac
+RUN pip install git+https://github.com/wdion-arista/ce_act_cli.git
 RUN --mount=type=bind,source=/,target=/app/ ansible-galaxy install -g -f -r /app/requirements.yml
 RUN  activate-global-python-argcomplete \
     && echo 'source /workspace/.env' >> ~/.bashrc
-# RUN rm /home/avd/.git-credentials
-#RUN if [ -f "/workspace/roles/requirements.yml" ]; then \
-#    echo "File exists: /workspace/roles/requirements.yml" \
-#    && ansible-galaxy install -g -f -r /workspace/roles/requirements.yml; \ 
-#else \
-#    echo "File does not exist: /workspace/roles/requirements.yml" | sudo tee file_exists.txt; \
-#fi
 
