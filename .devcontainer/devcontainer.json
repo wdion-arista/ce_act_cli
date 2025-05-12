@@ -1,17 +1,7 @@
 {
     "name": "AVD - ${localWorkspaceFolderBasename}",
     //"image": "ghcr.io/aristanetworks/avd/universal:python3.11-avd-v5.4.0",
-    //"image": "registry.gitlab.aristanetworks.com/westley.dion/ce_act_cli/ce_act_cli:v0.1.8",
-    "image": "ghcr.io/wdion-arista/wdion-arista/ce_act_cli:latest",
-    // "image": "docker-ce_act_cli:latest",
-    // "build": { 
-    //     "dockerfile": "Dockerfile",
-    //     // "context": ".."
-    //     "args":{
-    //         "GITLAB_PAT": "{localEnv:GITLAB_PAT}",
-    //         "GITLAB_USER": "{localEnv:GITLAB_USER}"
-    //     }
-    // },
+    "image": "ghcr.io/wdion-arista/wdion-arista/ce_act_cli:lwdion_cli_pipeline_03",
     "mounts": [
         "source=${localEnv:HOME}/.ssh,target=/home/avd/.ssh,type=bind",
         "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
@@ -24,8 +14,6 @@
         "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
     },
     "runArgs": [
-        //"--network=host"
-        //"--mount", "type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock",
         "--userns=host"
     ],
     "customizations": {
@@ -35,8 +23,8 @@
                 "dbaeumer.vscode-eslint",
                 "ms-vscode.makefile-tools",
                 "redhat.ansible",
-                "GitLab.gitlab-workflow",
-                "eamodio.gitlens"
+                "eamodio.gitlens",
+                "github.vscode-github-actions"
             ]
         }
     }
