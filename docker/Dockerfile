@@ -10,11 +10,13 @@ ARG GH_USERNAME
 ENV GH_USERNAME=$GH_USERNAME
 SHELL ["/bin/bash", "-c"]
 
-RUN sudo apt update \
-    && sudo apt autoremove -y \
-    && sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_arm64 -O /usr/bin/yq \
-    && sudo chmod +x /usr/bin/yq
+USER root
+RUN apt update \
+    && apt autoremove -y \
+    && wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_arm64 -O /usr/bin/yq \
+    && chmod +x /usr/bin/yq
 
+USER avd
 RUN pip install --upgrade pip
 
 
