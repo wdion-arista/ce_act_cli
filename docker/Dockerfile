@@ -23,7 +23,10 @@ RUN git config --global credential.helper store
     # &&  echo "https://${GITLAB_USER}:${GITLAB_PAT}@gitlab.aristanetworks.com" > /home/avd/.git-credentials
 RUN --mount=type=bind,source=/,target=/app/ pip install -r /app/requirements.txt
 RUN --mount=type=bind,source=/,target=/app/ pip install --no-index --find-links=/app/wheelhouse actrac
-RUN pip install git+https://github.com/wdion-arista/ce_act_cli.git
+# FIX THIS BELOW!
+RUN pwd && \
+    ls
+RUN --mount=type=bind,source=/,target=/app/ pip install git+https://github.com/wdion-arista/ce_act_cli.git
 RUN --mount=type=bind,source=/,target=/app/ ansible-galaxy install -g -f -r /app/requirements.yml
 RUN  activate-global-python-argcomplete \
     && echo 'source /workspace/.env' >> ~/.bashrc
