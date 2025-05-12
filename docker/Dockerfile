@@ -30,7 +30,7 @@ RUN --mount=type=bind,source=/,target=/app/ pip install --no-index --find-links=
 RUN pwd && \
     ls &&\
     env
-RUN git clone https://${GH_USERNAME}:${GH_TOKEN}@github.com/wdion-arista/ce_act_cli.git
+RUN pip install https://${GH_USERNAME}:${GH_TOKEN}@github.com/wdion-arista/ce_act_cli.git
 # RUN --mount=type=bind,source=/,target=/app/ pip install git+https://github.com/wdion-arista/ce_act_cli.git
 RUN --mount=type=bind,source=/,target=/app/ ansible-galaxy install -g -f -r /app/requirements.yml
 RUN  activate-global-python-argcomplete \
