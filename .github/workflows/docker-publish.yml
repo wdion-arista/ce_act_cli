@@ -33,5 +33,6 @@ jobs:
           tags: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:latest
           build-args: |
             GH_USERNAME=${{ github.actor }}
-            GH_TOKEN=${{ secrets.GITHUB_TOKEN }}
             AVD_VERSION=${{ env.AVD_VERSION }}
+          secrets: |
+            "GH_TOKEN=${{ secrets.GITHUB_TOKEN }}"
