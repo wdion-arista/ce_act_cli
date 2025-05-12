@@ -38,4 +38,4 @@ jobs:
             GH_USERNAME=${{ github.actor }}
             AVD_VERSION=${{ env.AVD_VERSION }}
           secrets: |
-            "GH_TOKEN=${{ secrets.GITHUB_TOKEN }}"
+            GH_TOKEN=${{ secrets.GITHUB_TOKEN }}

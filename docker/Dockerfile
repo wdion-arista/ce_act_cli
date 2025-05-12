@@ -1,4 +1,6 @@
+# syntax=docker/dockerfile:1.4
 #FROM ghcr.io/aristanetworks/avd/universal:python3.11-avd-v5.1.0
+
 ARG AVD_VERSION
 
 FROM ghcr.io/aristanetworks/avd/universal:${AVD_VERSION}
