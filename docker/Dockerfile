@@ -26,7 +26,7 @@ RUN --mount=type=bind,source=/,target=/app/ pip install -r /app/requirements.txt
 RUN --mount=type=bind,source=/,target=/app/ pip install --no-index --find-links=/app/wheelhouse actrac
 
 RUN --mount=type=secret,id=GH_TOKEN \
-        pip install  git+https://${GH_USERNAME}:$(cat /run/secrets/GH_TOKEN)@github.com/wdion-arista/ce_act_cli.git
+        pip install  git+https://${GH_USERNAME}:$(sudo cat /run/secrets/GH_TOKEN)@github.com/wdion-arista/ce_act_cli.git
 
 RUN --mount=type=bind,source=/,target=/app/ ansible-galaxy install -g -f -r /app/requirements.yml
 RUN  activate-global-python-argcomplete \
