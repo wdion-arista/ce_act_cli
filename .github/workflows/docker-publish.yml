@@ -47,3 +47,39 @@ jobs:
             AVD_VERSION=${{ env.AVD_VERSION }}
           secrets: |
             GH_TOKEN=${{ secrets.GITHUB_TOKEN }}
+
+  build-and-push-main:
+    if: ${{ github.ref_name == 'main' }}
+    runs-on: ubuntu-latest
+    environment:
+      name: production  # This triggers required reviewer approval
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Semgrep
+        run: pip install semgrep
+      - name: Run Semgrep
+        run: semgrep scan --config auto
+        env:
+          SEMGREP_RULES: >-
+            p/ci p/security-audit p/secrets p/xss
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: docker/.
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:latest
+          build-args: |
+            GH_USERNAME=${{ github.actor }}
+            AVD_VERSION=${{ env.AVD_VERSION }}
+          secrets: |
+            GH_TOKEN=${{ secrets.GITHUB_TOKEN }}            
