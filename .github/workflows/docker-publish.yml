@@ -8,6 +8,9 @@ on:
     # Trigger on all branches (or specify your branches)
     branches:
       - '**'
+    paths-ignore:
+      - '.dev.container/**'
+
 
 jobs:
   
