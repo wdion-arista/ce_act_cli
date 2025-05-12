@@ -5,15 +5,18 @@ env:
 
 on:
   push:
-    branches: [main,wdion_cli_pipeline_03]
-    
+    # Trigger on all branches (or specify your branches)
+    branches:
+      - '**'
 
 jobs:
-  build-and-push:
+  
+  build-and-push-dev:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
+    if: ${{ github.ref_name != 'main' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -30,7 +33,7 @@ jobs:
         with:
           context: docker/.
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:latest
+          tags: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:l${{ github.ref_name }}
           build-args: |
             GH_USERNAME=${{ github.actor }}
             AVD_VERSION=${{ env.AVD_VERSION }}
