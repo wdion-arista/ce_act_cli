@@ -1,5 +1,7 @@
 #FROM ghcr.io/aristanetworks/avd/universal:python3.11-avd-v5.1.0
-FROM ghcr.io/aristanetworks/avd/universal:python3.12-avd-v5.4.0
+ARG AVD_VERSION
+
+FROM ghcr.io/aristanetworks/avd/universal:${AVD_VERSION}
 
 # ARG GITLAB_PAT
 # ENV GITLAB_PAT=$GITLAB_PAT

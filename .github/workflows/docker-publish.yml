@@ -1,5 +1,8 @@
 name: Build and Publish Docker Image
 
+env:
+  AVD_VERSION: python3.12-avd-v5.4.0
+
 on:
   push:
     branches: [main,wdion_ce_cli_01]
@@ -31,3 +34,4 @@ jobs:
           build-args: |
             GH_USERNAME=${{ github.actor }}
             GH_TOKEN=${{ secrets.GITHUB_TOKEN }}
+            GH_TOKEN=${{ env.AVD_VERSION }}

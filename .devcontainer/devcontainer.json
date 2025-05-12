@@ -1,8 +1,8 @@
 {
     "name": "AVD - ${localWorkspaceFolderBasename}",
-    "image": "ghcr.io/aristanetworks/avd/universal:python3.11-avd-v5.4.0",
+    //"image": "ghcr.io/aristanetworks/avd/universal:python3.11-avd-v5.4.0",
     //"image": "registry.gitlab.aristanetworks.com/westley.dion/ce_act_cli/ce_act_cli:v0.1.8",
-    //"image": "ghcr.io/wdion-arista/wdion-arista/ce_act_cli:latest",
+    "image": "ghcr.io/wdion-arista/wdion-arista/ce_act_cli:latest",
     // "image": "docker-ce_act_cli:latest",
     // "build": { 
     //     "dockerfile": "Dockerfile",
