@@ -29,7 +29,9 @@ RUN --mount=type=bind,source=/,target=/app/ pip install --no-index --find-links=
 # FIX THIS BELOW!
 RUN pwd && \
     ls &&\
-    env
+    env && \
+    ls -lha /home/avd
+
 RUN pip install  git+https://${GH_USERNAME}:${GH_TOKEN}@github.com/wdion-arista/ce_act_cli.git
 # RUN --mount=type=bind,source=/,target=/app/ pip install git+https://github.com/wdion-arista/ce_act_cli.git
 RUN --mount=type=bind,source=/,target=/app/ ansible-galaxy install -g -f -r /app/requirements.yml
