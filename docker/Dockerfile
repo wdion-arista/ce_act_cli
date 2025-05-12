@@ -25,7 +25,8 @@ RUN --mount=type=bind,source=/,target=/app/ pip install -r /app/requirements.txt
 RUN --mount=type=bind,source=/,target=/app/ pip install --no-index --find-links=/app/wheelhouse actrac
 # FIX THIS BELOW!
 RUN pwd && \
-    ls
+    ls &&\
+    env
 RUN --mount=type=bind,source=/,target=/app/ pip install git+https://github.com/wdion-arista/ce_act_cli.git
 RUN --mount=type=bind,source=/,target=/app/ ansible-galaxy install -g -f -r /app/requirements.yml
 RUN  activate-global-python-argcomplete \
