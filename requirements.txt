@@ -1,5 +1,5 @@
 python-dotenv
 argcomplete
 PyYAML
-git+https://github.com/wdion-arista/ce_act_cli.git
+# git+https://github.com/wdion-arista/ce_act_cli.git
 pyinputplus

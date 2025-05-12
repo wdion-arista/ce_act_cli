@@ -1,4 +1,5 @@
-actrac @ git+https://gitlab.aristanetworks.com/arista-eosplus/ACT/actrac.git@dad885f8d753c19925130bba62a2cd2c11466783
+# actrac @ git+https://gitlab.aristanetworks.com/arista-eosplus/ACT/actrac.git@dad885f8d753c19925130bba62a2cd2c11466783
+# actrac
 anyio==4.9.0
 argcomplete==3.6.1
 certifi==2025.1.31
