@@ -20,13 +20,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - uses: actions/checkout@v3
-      # Example: Semgrep SAST
-      - name: Run Semgrep SAST
-        uses: returntocorp/semgrep-action@v1
-        with:
-          config: 'auto'
+      - name: Install Semgrep
+        run: pip install semgrep
+      - name: Run Semgrep
+        run: semgrep scan --config auto
         env:
           SEMGREP_RULES: >-
             p/ci p/security-audit p/secrets p/xss
