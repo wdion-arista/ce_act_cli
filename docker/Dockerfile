@@ -53,3 +53,6 @@ RUN --mount=type=bind,source=/,target=/app/ ansible-galaxy install -g -f -r /app
 RUN  activate-global-python-argcomplete \
     && echo 'source /workspace/.env' >> ~/.bashrc
 
+COPY ./scripts /home/avd/bin
+RUN chmod u+x /home/avd/bin/*.py \
+    && chmod u+x /home/avd/bin/*.sh
