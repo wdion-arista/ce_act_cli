@@ -1,0 +1,10 @@
+{
+    "mappings": [
+        {
+            "selector": "[label]",
+            "properties": {
+                "label": "label"
+            }
+        }
+    ]
+}
