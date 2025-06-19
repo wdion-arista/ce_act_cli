@@ -1,7 +1,7 @@
 name: Build and Publish Docker Image
 
 env:
-  AVD_VERSION: python3.12-avd-v5.5.0
+  AVD_VERSION: python3.12-avd-v5.4.0
 
 on:
   push:
