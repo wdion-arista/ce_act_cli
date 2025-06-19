@@ -60,7 +60,7 @@ RUN sudo apt-get purge -y moby-engine moby-cli moby-buildx moby-compose \
     && sudo apt-get autoremove -y \
     && sudo groupdel docker
 
-RUN groupadd -g ${DOCKER_GID} docker
+RUN sudo groupadd -g ${DOCKER_GID} docker
 
 # Install prerequisites
 RUN sudo apt-get install -y ca-certificates curl gnupg lsb-release
