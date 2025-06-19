@@ -39,7 +39,7 @@ RUN apt-get update && \
 # Switch to avd user
 USER avd
 RUN pip install --upgrade pip
-
+RUN curl -sL https://containerlab.dev/setup | sudo -E bash -s "all"
 
 #RUN git config --global credential.helper store 
 
