@@ -302,19 +302,18 @@ def labs_commands(api_key, arg_values=None, output_type = "print", debug = False
                 lab_id_val = None
 
         if item_selected:
+            lab_topology_definition = lab_id_val["topology_definition"]
+            lab_description = lab_id_val["description"]
+            lab_name = lab_id_val["name"]         
+            return_result["PRINT"].append(color_txt("OKBLUE",f"\nPRE UPDATE:\nLab name:{lab_name}\nTopology name:{lab_topology_definition}\nDescription:{lab_description}"))
             
-            return_result["PRINT"].append(color_txt("OKBLUE",f"\nPRE UPDATE:\nLab name:{lab_id_val["name"]}\nTopology name:{lab_id_val["topology_definition"]}\nDescription:{lab_id_val["description"]}"))
             if arg_values.lab_description is not None: 
                 lab_description = arg_values.lab_description
-            else:
-                lab_description = lab_id_val["description"]
             
             if arg_values.new_lab_name is not None: 
                 lab_name = arg_values.new_lab_name
-            else:
-                lab_name = lab_id_val["name"]
             
-            return_result["PRINT"].append(color_txt("CYAN",f"\nPOST UPDATE:\nLab name:{lab_name}\nTopology name:{lab_id_val["topology_definition"]}\nDescription:{lab_description}"))
+            return_result["PRINT"].append(color_txt("CYAN",f"\nPOST UPDATE:\nLab name:{lab_name}\nTopology name:{lab_topology_definition}\nDescription:{lab_description}"))
             result = client.api.update_lab(
                 lab_id=lab_id_val["id"],
                 name=lab_name,
