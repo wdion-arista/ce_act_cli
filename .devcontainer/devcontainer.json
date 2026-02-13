@@ -1,7 +1,7 @@
 {
     "name": "AVD - ${localWorkspaceFolderBasename}",
     //"image": "ghcr.io/aristanetworks/avd/universal:python3.11-avd-v5.4.0",
-    "image": "ghcr.io/wdion-arista/wdion-arista/ce_act_cli:v1.0.5-python3.12-avd-v5.5.0",
+    "image": "ghcr.io/wdion-arista/wdion-arista/ce_act_cli:lwdion_avd_update_5.5.0_clabs",
     "mounts": [
         "source=${localEnv:HOME}/.ssh,target=/home/avd/.ssh,type=bind",
         "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
