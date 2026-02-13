@@ -14,7 +14,7 @@ with open('requirements-freeze.txt') as f:
 
 setup(
     name="ce_act",
-    version="1.0.5",
+    version="1.0.6",
     packages=['ce_act', 'ce_act.service'],
     package_dir={'ce_act': 'ce_act'},
     install_requires=requirements,
