@@ -2,9 +2,13 @@
 #FROM ghcr.io/aristanetworks/avd/universal:python3.11-avd-v5.4.0
 
 ARG AVD_VERSION
+# Desired Docker GID
+
 
 FROM ghcr.io/aristanetworks/avd/universal:${AVD_VERSION}
 
+ARG DOCKER_GID=2020
+ENV DOCKER_GID=$DOCKER_GID
 
 ARG GH_USERNAME
 ENV GH_USERNAME=$GH_USERNAME
@@ -30,6 +34,15 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | \
 RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | \
     tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 
+RUN sudo apt-get purge -y moby-engine moby-cli moby-buildx moby-compose \
+    && sudo apt-get autoremove -y \
+    && sudo groupdel docker
+
+RUN echo "Using DOCKER_GID=${DOCKER_GID}"
+
+RUN sudo groupadd -g ${DOCKER_GID} docker
+
+
 # Install gh and clean up
 RUN apt-get update && \
     apt-get install -y gh && \
@@ -39,6 +52,7 @@ RUN apt-get update && \
 # Switch to avd user
 USER avd
 RUN pip install --upgrade pip
+RUN curl -sL https://containerlab.dev/setup | sudo -E bash -s "all"
 
 
 #RUN git config --global credential.helper store 
@@ -53,3 +67,27 @@ RUN --mount=type=bind,source=/,target=/app/ ansible-galaxy install -g -f -r /app
 RUN  activate-global-python-argcomplete \
     && echo 'source /workspace/.env' >> ~/.bashrc
 
+
+
+# # Install prerequisites
+# RUN sudo apt-get install -y ca-certificates curl gnupg lsb-release
+
+# # Add Microsoft GPG key
+# RUN curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | \
+#   gpg --dearmor | sudo tee /usr/share/keyrings/microsoft.gpg > /dev/null
+
+# # Add moby APT repo
+# RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/microsoft.gpg] \
+#   https://packages.microsoft.com/debian/12/prod bookworm main" | \
+#   sudo tee /etc/apt/sources.list.d/microsoft-prod.list > /dev/null
+
+# # Update and install
+# RUN sudo apt-get update && \
+#     sudo apt-get install -y \
+#         moby-engine \
+#         moby-cli \
+#         moby-buildx \
+#         moby-compose
+
+# RUN sudo usermod -aG docker $USER \
+#     && newgrp docker

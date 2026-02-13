@@ -263,8 +263,12 @@ def topology_commands(api_key, arg_values=None, output_type = "print", debug = F
                 topo_id_val = None
 
         if item_selected:
-            
-            return_result["PRINT"].append(color_txt("OKBLUE",f"\nPRE UPDATE:\nTopo name: {topo_id_val["name"]}\nTopology file name: {topo_id_val["topology_pathname"]}\nDescription: {topo_id_val["description"]}\nImage File: {topo_id_val["diagram_pathname"]}\n\nCreated By: {topo_id_val["created_by"]}"))
+            topo_description = topo_id_val["description"]
+            topo_name = topo_id_val["name"]
+            topo_topology_pathname = topo_id_val["topology_pathname"]
+            topo_diagram_pathname = topo_id_val["diagram_pathname"]
+            topo_created_by = topo_id_val["created_by"]
+            return_result["PRINT"].append(color_txt("OKBLUE",f"\nPRE UPDATE:\nTopo name: {topo_name}\nTopology file name: {topo_topology_pathname}\nDescription: {topo_description}\nImage File: {topo_diagram_pathname}\n\nCreated By: {topo_created_by}"))
             run_command = True
             # Description
             if arg_values.topo_description is not None: 

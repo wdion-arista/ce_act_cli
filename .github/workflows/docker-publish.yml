@@ -2,7 +2,7 @@ name: Build and Publish Docker Image
 
 env:
   AVD_VERSION: python3.12-avd-v5.4.0
-
+  DOCKER_GID: 2020
 on:
   push:
     # Trigger on all branches (or specify your branches)
@@ -48,6 +48,8 @@ jobs:
           build-args: |
             GH_USERNAME=${{ github.actor }}
             AVD_VERSION=${{ env.AVD_VERSION }}
+            DOCKER_GID=${{ env.DOCKER_GID }}
+            
           secrets: |
             GH_TOKEN=${{ secrets.GITHUB_TOKEN }}
 
@@ -79,6 +81,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: docker/.
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:latest
           build-args: |
